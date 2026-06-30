@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hollywood's Daily Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream:      #fdf7f2;
+      --blush-lt:   #fce9e9;
+      --blush:      #f2c4c4;
+      --rose:       #d4908a;
+      --gold:       #c9a86c;
+      --gold-lt:    rgba(201,168,108,0.18);
+      --sage:       #b8c9b8;
+      --text:       #3a2828;
+      --text-mid:   #7a5050;
+      --text-soft:  #a87878;
+      --card-bg:    rgba(255,255,255,0.55);
+      --card-border:rgba(201,168,108,0.22);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: linear-gradient(160deg, #fdf7f2 0%, #fce9e9 45%, #f8ece4 100%);
+      min-height: 100vh;
+      color: var(--text);
+    }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    .header {
+      text-align: center;
+      padding: 72px 24px 56px;
+    }
+
+    .greeting {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2.8rem, 9vw, 5.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .dateline {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 32px;
+    }
+
+    .gold-rule {
+      width: 52px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 28px;
+    }
+
+    .tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-mid);
+    }
+
+    /* ── PREVIEW GRID ────────────────────────────────── */
+    .preview-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .preview-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 36px 24px 30px;
+      text-align: center;
+      box-shadow: 0 2px 20px rgba(180,120,120,0.07), 0 1px 4px rgba(180,120,120,0.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .preview-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(180,120,120,0.12);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 7px;
+    }
+
+    .card-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,108,0.35);
+      padding: 4px 14px;
+      border-radius: 100px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding-bottom: 48px;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+    }
+
+    /* ── MOBILE ─────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .header { padding: 56px 20px 44px; }
+      .preview-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .preview-card { padding: 28px 16px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="greeting" id="greeting">Hey Hollywood ✨</h1>
+    <p class="dateline" id="dateline"></p>
+    <div class="gold-rule"></div>
+    <p class="tagline">Your world, all in one place.</p>
+  </header>
+
+  <main class="preview-wrap">
+    <p class="section-label">What's coming</p>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <span class="card-icon">🌤️</span>
+        <h3 class="card-title">Weather</h3>
+        <p class="card-sub">LA · Sacramento<br>Citrus Heights</p>
+        <span class="badge">Loading soon</span>
+      </div>
+      <div class="preview-card">
+        <span class="card-icon">✝️</span>
+        <h3 class="card-title">Daily Scripture</h3>
+        <p class="card-sub">A verse to start<br>your day right</p>
+        <span class="badge">Loading soon</span>
+      </div>
+      <div class="preview-card">
+        <span class="card-icon">💅</span>
+        <h3 class="card-title">Beauty & Style</h3>
+        <p class="card-sub">Trends, inspo<br>& new drops</p>
+        <span class="badge">Loading soon</span>
+      </div>
+      <div class="preview-card">
+        <span class="card-icon">📰</span>
+        <h3 class="card-title">News</h3>
+        <p class="card-sub">Sacramento · Black media<br>National</p>
+        <span class="badge">Loading soon</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    made with love, just for you 🤍
+  </footer>
+
+  <script>
+    const GREETINGS = {
+      morning:   ["Morning, Hollywood ☀️", "Rise & shine, Hollywood 💫", "Good morning, Hollywood ✨"],
+      afternoon: ["Hey Hollywood ✨", "Afternoon, Hollywood 💛", "What's good, Hollywood 🌸"],
+      evening:   ["Evening, Hollywood 🌙", "Hey Hollywood 🌟", "Good evening, Hollywood 💜"],
+      night:     ["Still up, Hollywood? ✨", "Late night, Hollywood 🌙", "Night, Hollywood 💫"],
+    };
+
+    function greetingForNow() {
+      const h = new Date().getHours();
+      const key =
+        h >= 5  && h < 12 ? "morning"   :
+        h >= 12 && h < 17 ? "afternoon" :
+        h >= 17 && h < 21 ? "evening"   : "night";
+      const list = GREETINGS[key];
+      const dayOfYear = Math.floor(
+        (Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86_400_000
+      );
+      return list[dayOfYear % list.length];
+    }
+
+    function formatDate() {
+      return new Date().toLocaleDateString("en-US", {
+        weekday: "long", year: "numeric", month: "long", day: "numeric",
+      });
+    }
+
+    document.getElementById("greeting").textContent = greetingForNow();
+    document.getElementById("dateline").textContent = formatDate();
+  </script>
+</body>
+</html>
