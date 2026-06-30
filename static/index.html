@@ -11,18 +11,19 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --cream:      #fdf7f2;
-      --blush-lt:   #fce9e9;
-      --blush:      #f2c4c4;
-      --rose:       #d4908a;
-      --gold:       #c9a86c;
-      --gold-lt:    rgba(201,168,108,0.18);
-      --sage:       #b8c9b8;
-      --text:       #3a2828;
-      --text-mid:   #7a5050;
-      --text-soft:  #a87878;
-      --card-bg:    rgba(255,255,255,0.55);
-      --card-border:rgba(201,168,108,0.22);
+      --cream:       #fdf7f2;
+      --blush-lt:    #fce9e9;
+      --blush:       #f2c4c4;
+      --rose:        #d4908a;
+      --gold:        #c9a86c;
+      --gold-lt:     rgba(201,168,108,0.18);
+      --text:        #3a2828;
+      --text-mid:    #7a5050;
+      --text-soft:   #a87878;
+      --card-bg:     rgba(255,255,255,0.58);
+      --card-border: rgba(201,168,108,0.22);
+      --shadow-sm:   0 2px 20px rgba(180,120,120,0.07), 0 1px 4px rgba(180,120,120,0.05);
+      --shadow-md:   0 8px 32px rgba(180,120,120,0.12);
     }
 
     html { scroll-behavior: smooth; }
@@ -34,108 +35,206 @@
       color: var(--text);
     }
 
-    /* ── HEADER ─────────────────────────────────────── */
+    /* ── HEADER ─────────────────────────────────────────────── */
     .header {
       text-align: center;
-      padding: 72px 24px 56px;
+      padding: 68px 24px 48px;
     }
 
     .greeting {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: clamp(2.8rem, 9vw, 5.6rem);
+      font-size: clamp(2.8rem, 9vw, 5.4rem);
       line-height: 1.08;
       letter-spacing: -0.01em;
       color: var(--text);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .dateline {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 400;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-soft);
-      margin-bottom: 32px;
+      margin-bottom: 36px;
     }
 
     .gold-rule {
       width: 52px;
       height: 1.5px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 28px;
+      margin: 0 auto 48px;
     }
 
-    .tagline {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      color: var(--text-mid);
-    }
-
-    /* ── PREVIEW GRID ────────────────────────────────── */
-    .preview-wrap {
-      max-width: 960px;
+    /* ── WEATHER STRIP ──────────────────────────────────────── */
+    .weather-strip {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 860px;
       margin: 0 auto;
-      padding: 0 24px 100px;
+      padding: 0 24px;
     }
 
-    .section-label {
-      font-size: 0.7rem;
+    .weather-card {
+      flex: 1 1 220px;
+      max-width: 260px;
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 28px 22px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .weather-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .weather-icon {
+      font-size: 2.6rem;
+      line-height: 1;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .weather-city {
+      font-size: 0.68rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .weather-temp {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .weather-condition {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      font-weight: 300;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .weather-divider {
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 12px;
+    }
+
+    .weather-hilo {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      letter-spacing: 0.06em;
+    }
+
+    .weather-hilo span {
+      color: var(--rose);
+      font-weight: 500;
+    }
+
+    /* skeleton loader */
+    .weather-card.loading .weather-icon,
+    .weather-card.loading .weather-temp,
+    .weather-card.loading .weather-condition,
+    .weather-card.loading .weather-hilo {
+      background: linear-gradient(90deg, #f0dede 25%, #fce9e9 50%, #f0dede 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 8px;
+      color: transparent;
+    }
+
+    .weather-card.loading .weather-icon  { height: 2.6rem; width: 2.6rem; margin: 0 auto 10px; border-radius: 50%; }
+    .weather-card.loading .weather-temp  { height: 3rem; width: 80px; margin: 0 auto 6px; }
+    .weather-card.loading .weather-condition { height: 0.9rem; width: 110px; margin: 0 auto 14px; }
+    .weather-card.loading .weather-hilo  { height: 0.75rem; width: 120px; margin: 0 auto; }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* error state */
+    .weather-error {
       text-align: center;
-      margin-bottom: 32px;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      font-style: italic;
+      padding: 20px;
     }
 
-    .preview-grid {
+    /* ── COMING SOON ─────────────────────────────────────────── */
+    .coming-wrap {
+      max-width: 860px;
+      margin: 56px auto 0;
+      padding: 0 24px 90px;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .coming-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
     }
 
-    .preview-card {
+    .coming-card {
       background: var(--card-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--card-border);
       border-radius: 22px;
-      padding: 36px 24px 30px;
+      padding: 32px 22px 26px;
       text-align: center;
-      box-shadow: 0 2px 20px rgba(180,120,120,0.07), 0 1px 4px rgba(180,120,120,0.05);
+      box-shadow: var(--shadow-sm);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .preview-card:hover {
+    .coming-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(180,120,120,0.12);
+      box-shadow: var(--shadow-md);
     }
 
-    .card-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 14px;
-    }
-
+    .card-icon  { font-size: 1.9rem; display: block; margin-bottom: 12px; }
     .card-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: var(--text);
-      margin-bottom: 7px;
+      margin-bottom: 6px;
     }
-
     .card-sub {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-soft);
       font-weight: 300;
-      line-height: 1.5;
+      line-height: 1.55;
     }
-
     .badge {
       display: inline-block;
-      margin-top: 16px;
-      font-size: 0.65rem;
+      margin-top: 14px;
+      font-size: 0.62rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--gold);
@@ -144,67 +243,93 @@
       border-radius: 100px;
     }
 
-    /* ── FOOTER ─────────────────────────────────────── */
+    /* ── FOOTER ─────────────────────────────────────────────── */
     .footer {
       text-align: center;
       padding-bottom: 48px;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
       color: var(--text-soft);
     }
 
-    /* ── MOBILE ─────────────────────────────────────── */
-    @media (max-width: 480px) {
-      .header { padding: 56px 20px 44px; }
-      .preview-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-      .preview-card { padding: 28px 16px 22px; }
+    /* ── MOBILE ─────────────────────────────────────────────── */
+    @media (max-width: 520px) {
+      .header { padding: 52px 20px 40px; }
+      .weather-strip { gap: 12px; }
+      .weather-card { padding: 24px 18px 20px; }
+      .weather-temp { font-size: 2.5rem; }
+      .coming-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .coming-card { padding: 26px 16px 20px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ── HEADER ───────────────────────────────────────────── -->
   <header class="header">
     <h1 class="greeting" id="greeting">Hey Hollywood ✨</h1>
     <p class="dateline" id="dateline"></p>
     <div class="gold-rule"></div>
-    <p class="tagline">Your world, all in one place.</p>
-  </header>
 
-  <main class="preview-wrap">
-    <p class="section-label">What's coming</p>
-    <div class="preview-grid">
-      <div class="preview-card">
-        <span class="card-icon">🌤️</span>
-        <h3 class="card-title">Weather</h3>
-        <p class="card-sub">LA · Sacramento<br>Citrus Heights</p>
-        <span class="badge">Loading soon</span>
+    <!-- Weather -->
+    <div class="weather-strip" id="weather-strip">
+      <!-- JS populates these -->
+      <div class="weather-card loading" data-city="Los Angeles">
+        <span class="weather-icon"> </span>
+        <p class="weather-city">Los Angeles</p>
+        <p class="weather-temp"> </p>
+        <p class="weather-condition"> </p>
+        <div class="weather-divider"></div>
+        <p class="weather-hilo"> </p>
       </div>
-      <div class="preview-card">
-        <span class="card-icon">✝️</span>
-        <h3 class="card-title">Daily Scripture</h3>
-        <p class="card-sub">A verse to start<br>your day right</p>
-        <span class="badge">Loading soon</span>
+      <div class="weather-card loading" data-city="Sacramento">
+        <span class="weather-icon"> </span>
+        <p class="weather-city">Sacramento</p>
+        <p class="weather-temp"> </p>
+        <p class="weather-condition"> </p>
+        <div class="weather-divider"></div>
+        <p class="weather-hilo"> </p>
       </div>
-      <div class="preview-card">
-        <span class="card-icon">💅</span>
-        <h3 class="card-title">Beauty & Style</h3>
-        <p class="card-sub">Trends, inspo<br>& new drops</p>
-        <span class="badge">Loading soon</span>
-      </div>
-      <div class="preview-card">
-        <span class="card-icon">📰</span>
-        <h3 class="card-title">News</h3>
-        <p class="card-sub">Sacramento · Black media<br>National</p>
-        <span class="badge">Loading soon</span>
+      <div class="weather-card loading" data-city="Citrus Heights">
+        <span class="weather-icon"> </span>
+        <p class="weather-city">Citrus Heights</p>
+        <p class="weather-temp"> </p>
+        <p class="weather-condition"> </p>
+        <div class="weather-divider"></div>
+        <p class="weather-hilo"> </p>
       </div>
     </div>
-  </main>
+  </header>
 
-  <footer class="footer">
-    made with love, just for you 🤍
-  </footer>
+  <!-- ── COMING SOON ──────────────────────────────────────── -->
+  <section class="coming-wrap">
+    <p class="section-label">More coming your way</p>
+    <div class="coming-grid">
+      <div class="coming-card">
+        <span class="card-icon">✝️</span>
+        <h3 class="card-title">Daily Scripture</h3>
+        <p class="card-sub">A verse to start your day right</p>
+        <span class="badge">Coming soon</span>
+      </div>
+      <div class="coming-card">
+        <span class="card-icon">💅</span>
+        <h3 class="card-title">Beauty & Style</h3>
+        <p class="card-sub">Trends, inspo & new drops</p>
+        <span class="badge">Coming soon</span>
+      </div>
+      <div class="coming-card">
+        <span class="card-icon">📰</span>
+        <h3 class="card-title">News</h3>
+        <p class="card-sub">Sacramento · Black media · National</p>
+        <span class="badge">Coming soon</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">made with love, just for you 🤍</footer>
 
   <script>
+    // ── Greeting + date ─────────────────────────────────────
     const GREETINGS = {
       morning:   ["Morning, Hollywood ☀️", "Rise & shine, Hollywood 💫", "Good morning, Hollywood ✨"],
       afternoon: ["Hey Hollywood ✨", "Afternoon, Hollywood 💛", "What's good, Hollywood 🌸"],
@@ -214,25 +339,79 @@
 
     function greetingForNow() {
       const h = new Date().getHours();
-      const key =
-        h >= 5  && h < 12 ? "morning"   :
-        h >= 12 && h < 17 ? "afternoon" :
-        h >= 17 && h < 21 ? "evening"   : "night";
+      const key = h >= 5 && h < 12 ? "morning"
+                : h >= 12 && h < 17 ? "afternoon"
+                : h >= 17 && h < 21 ? "evening" : "night";
       const list = GREETINGS[key];
-      const dayOfYear = Math.floor(
-        (Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86_400_000
-      );
-      return list[dayOfYear % list.length];
-    }
-
-    function formatDate() {
-      return new Date().toLocaleDateString("en-US", {
-        weekday: "long", year: "numeric", month: "long", day: "numeric",
-      });
+      const doy = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86_400_000);
+      return list[doy % list.length];
     }
 
     document.getElementById("greeting").textContent = greetingForNow();
-    document.getElementById("dateline").textContent = formatDate();
+    document.getElementById("dateline").textContent = new Date().toLocaleDateString("en-US", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric",
+    });
+
+    // ── WMO weather code → icon + label ─────────────────────
+    const WMO = {
+      0:  { icon: "☀️",  label: "Clear" },
+      1:  { icon: "🌤️", label: "Mostly Clear" },
+      2:  { icon: "⛅",  label: "Partly Cloudy" },
+      3:  { icon: "🌥️", label: "Overcast" },
+      45: { icon: "🌫️", label: "Foggy" },
+      48: { icon: "🌫️", label: "Icy Fog" },
+      51: { icon: "🌦️", label: "Light Drizzle" },
+      53: { icon: "🌦️", label: "Drizzle" },
+      55: { icon: "🌧️", label: "Heavy Drizzle" },
+      61: { icon: "🌧️", label: "Light Rain" },
+      63: { icon: "🌧️", label: "Rain" },
+      65: { icon: "🌧️", label: "Heavy Rain" },
+      71: { icon: "🌨️", label: "Light Snow" },
+      73: { icon: "🌨️", label: "Snow" },
+      75: { icon: "❄️",  label: "Heavy Snow" },
+      77: { icon: "🌨️", label: "Snow Grains" },
+      80: { icon: "🌦️", label: "Showers" },
+      81: { icon: "🌧️", label: "Heavy Showers" },
+      82: { icon: "⛈️",  label: "Violent Showers" },
+      85: { icon: "🌨️", label: "Snow Showers" },
+      86: { icon: "❄️",  label: "Heavy Snow Showers" },
+      95: { icon: "⛈️",  label: "Thunderstorm" },
+      96: { icon: "⛈️",  label: "Thunderstorm + Hail" },
+      99: { icon: "⛈️",  label: "Severe Thunderstorm" },
+    };
+
+    function wmo(code) {
+      return WMO[code] ?? { icon: "🌡️", label: "Unknown" };
+    }
+
+    // ── Populate a weather card ──────────────────────────────
+    function fillCard(card, data) {
+      const w = wmo(data.code);
+      card.classList.remove("loading");
+      card.querySelector(".weather-icon").textContent      = w.icon;
+      card.querySelector(".weather-temp").textContent      = `${data.temp}°`;
+      card.querySelector(".weather-condition").textContent = w.label;
+      card.querySelector(".weather-hilo").innerHTML =
+        `<span>H ${data.hi}°</span> &nbsp;·&nbsp; L ${data.lo}°`;
+    }
+
+    // ── Fetch weather from our backend ───────────────────────
+    async function loadWeather() {
+      try {
+        const res = await fetch("/api/weather");
+        if (!res.ok) throw new Error("weather fetch failed");
+        const cities = await res.json();
+        const cards  = document.querySelectorAll(".weather-card");
+        cities.forEach((data, i) => {
+          if (cards[i]) fillCard(cards[i], data);
+        });
+      } catch {
+        document.getElementById("weather-strip").innerHTML =
+          `<p class="weather-error">Weather is taking a break — check back in a moment 🌸</p>`;
+      }
+    }
+
+    loadWeather();
   </script>
 </body>
 </html>
