@@ -13,10 +13,8 @@
     :root {
       --cream:       #fdf7f2;
       --blush-lt:    #fce9e9;
-      --blush:       #f2c4c4;
-      --rose:        #d4908a;
       --gold:        #c9a86c;
-      --gold-lt:     rgba(201,168,108,0.18);
+      --rose:        #d4908a;
       --text:        #3a2828;
       --text-mid:    #7a5050;
       --text-soft:   #a87878;
@@ -97,56 +95,13 @@
       box-shadow: var(--shadow-md);
     }
 
-    .weather-icon {
-      font-size: 2.6rem;
-      line-height: 1;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .weather-city {
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
-
-    .weather-temp {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 500;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .weather-condition {
-      font-size: 0.82rem;
-      color: var(--text-mid);
-      font-weight: 300;
-      margin-bottom: 14px;
-      font-style: italic;
-    }
-
-    .weather-divider {
-      width: 32px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 12px;
-    }
-
-    .weather-hilo {
-      font-size: 0.75rem;
-      color: var(--text-soft);
-      letter-spacing: 0.06em;
-    }
-
-    .weather-hilo span {
-      color: var(--rose);
-      font-weight: 500;
-    }
+    .weather-icon      { font-size: 2.6rem; line-height: 1; margin-bottom: 10px; display: block; }
+    .weather-city      { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+    .weather-temp      { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 500; color: var(--text); line-height: 1; margin-bottom: 6px; }
+    .weather-condition { font-size: 0.82rem; color: var(--text-mid); font-weight: 300; margin-bottom: 14px; font-style: italic; }
+    .weather-divider   { width: 32px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto 12px; }
+    .weather-hilo      { font-size: 0.75rem; color: var(--text-soft); letter-spacing: 0.06em; }
+    .weather-hilo span { color: var(--rose); font-weight: 500; }
 
     /* skeleton loader */
     .weather-card.loading .weather-icon,
@@ -159,18 +114,16 @@
       border-radius: 8px;
       color: transparent;
     }
-
-    .weather-card.loading .weather-icon  { height: 2.6rem; width: 2.6rem; margin: 0 auto 10px; border-radius: 50%; }
-    .weather-card.loading .weather-temp  { height: 3rem; width: 80px; margin: 0 auto 6px; }
+    .weather-card.loading .weather-icon      { height: 2.6rem; width: 2.6rem; margin: 0 auto 10px; border-radius: 50%; }
+    .weather-card.loading .weather-temp      { height: 3rem; width: 80px; margin: 0 auto 6px; }
     .weather-card.loading .weather-condition { height: 0.9rem; width: 110px; margin: 0 auto 14px; }
-    .weather-card.loading .weather-hilo  { height: 0.75rem; width: 120px; margin: 0 auto; }
+    .weather-card.loading .weather-hilo      { height: 0.75rem; width: 120px; margin: 0 auto; }
 
     @keyframes shimmer {
       0%   { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
 
-    /* error state */
     .weather-error {
       text-align: center;
       font-size: 0.82rem;
@@ -179,11 +132,11 @@
       padding: 20px;
     }
 
-    /* ── COMING SOON ─────────────────────────────────────────── */
-    .coming-wrap {
+    /* ── SECTION WRAPPER (shared) ───────────────────────────── */
+    .section-wrap {
       max-width: 860px;
-      margin: 56px auto 0;
-      padding: 0 24px 90px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
     .section-label {
@@ -192,7 +145,79 @@
       text-transform: uppercase;
       color: var(--gold);
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
+    }
+
+    /* ── SCRIPTURE ──────────────────────────────────────────── */
+    .scripture-wrap {
+      max-width: 860px;
+      margin: 60px auto 0;
+      padding: 0 24px;
+    }
+
+    .scripture-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 48px 48px 40px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* soft blush glow behind the card */
+    .scripture-card::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(242,196,196,0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .scripture-ornament {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      line-height: 0.6;
+      color: rgba(201,168,108,0.25);
+      margin-bottom: 24px;
+      user-select: none;
+    }
+
+    .scripture-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+      line-height: 1.75;
+      color: var(--text);
+      max-width: 580px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .scripture-rule {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 18px;
+    }
+
+    .scripture-ref {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* ── COMING SOON ─────────────────────────────────────────── */
+    .coming-wrap {
+      max-width: 860px;
+      margin: 56px auto 0;
+      padding: 0 24px 90px;
     }
 
     .coming-grid {
@@ -213,34 +238,16 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .coming-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-    }
+    .coming-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
 
     .card-icon  { font-size: 1.9rem; display: block; margin-bottom: 12px; }
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .card-sub {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-      font-weight: 300;
-      line-height: 1.55;
-    }
-    .badge {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 0.62rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(201,168,108,0.35);
-      padding: 4px 14px;
-      border-radius: 100px;
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+    .card-sub   { font-size: 0.78rem; color: var(--text-soft); font-weight: 300; line-height: 1.55; }
+    .badge      {
+      display: inline-block; margin-top: 14px;
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(201,168,108,0.35);
+      padding: 4px 14px; border-radius: 100px;
     }
 
     /* ── FOOTER ─────────────────────────────────────────────── */
@@ -258,6 +265,7 @@
       .weather-strip { gap: 12px; }
       .weather-card { padding: 24px 18px 20px; }
       .weather-temp { font-size: 2.5rem; }
+      .scripture-card { padding: 36px 28px 32px; }
       .coming-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .coming-card { padding: 26px 16px 20px; }
     }
@@ -271,9 +279,7 @@
     <p class="dateline" id="dateline"></p>
     <div class="gold-rule"></div>
 
-    <!-- Weather -->
     <div class="weather-strip" id="weather-strip">
-      <!-- JS populates these -->
       <div class="weather-card loading" data-city="Los Angeles">
         <span class="weather-icon"> </span>
         <p class="weather-city">Los Angeles</p>
@@ -301,16 +307,21 @@
     </div>
   </header>
 
+  <!-- ── SCRIPTURE ────────────────────────────────────────── -->
+  <section class="scripture-wrap">
+    <p class="section-label">Today's scripture</p>
+    <div class="scripture-card">
+      <span class="scripture-ornament">"</span>
+      <p class="scripture-text" id="scripture-text"></p>
+      <div class="scripture-rule"></div>
+      <p class="scripture-ref" id="scripture-ref"></p>
+    </div>
+  </section>
+
   <!-- ── COMING SOON ──────────────────────────────────────── -->
   <section class="coming-wrap">
     <p class="section-label">More coming your way</p>
     <div class="coming-grid">
-      <div class="coming-card">
-        <span class="card-icon">✝️</span>
-        <h3 class="card-title">Daily Scripture</h3>
-        <p class="card-sub">A verse to start your day right</p>
-        <span class="badge">Coming soon</span>
-      </div>
       <div class="coming-card">
         <span class="card-icon">💅</span>
         <h3 class="card-title">Beauty & Style</h3>
@@ -352,39 +363,24 @@
       weekday: "long", year: "numeric", month: "long", day: "numeric",
     });
 
-    // ── WMO weather code → icon + label ─────────────────────
+    // ── WMO weather codes ────────────────────────────────────
     const WMO = {
-      0:  { icon: "☀️",  label: "Clear" },
-      1:  { icon: "🌤️", label: "Mostly Clear" },
-      2:  { icon: "⛅",  label: "Partly Cloudy" },
-      3:  { icon: "🌥️", label: "Overcast" },
-      45: { icon: "🌫️", label: "Foggy" },
-      48: { icon: "🌫️", label: "Icy Fog" },
-      51: { icon: "🌦️", label: "Light Drizzle" },
-      53: { icon: "🌦️", label: "Drizzle" },
-      55: { icon: "🌧️", label: "Heavy Drizzle" },
-      61: { icon: "🌧️", label: "Light Rain" },
-      63: { icon: "🌧️", label: "Rain" },
-      65: { icon: "🌧️", label: "Heavy Rain" },
-      71: { icon: "🌨️", label: "Light Snow" },
-      73: { icon: "🌨️", label: "Snow" },
-      75: { icon: "❄️",  label: "Heavy Snow" },
-      77: { icon: "🌨️", label: "Snow Grains" },
-      80: { icon: "🌦️", label: "Showers" },
-      81: { icon: "🌧️", label: "Heavy Showers" },
-      82: { icon: "⛈️",  label: "Violent Showers" },
-      85: { icon: "🌨️", label: "Snow Showers" },
-      86: { icon: "❄️",  label: "Heavy Snow Showers" },
-      95: { icon: "⛈️",  label: "Thunderstorm" },
-      96: { icon: "⛈️",  label: "Thunderstorm + Hail" },
-      99: { icon: "⛈️",  label: "Severe Thunderstorm" },
+      0: { icon: "☀️", label: "Clear" }, 1: { icon: "🌤️", label: "Mostly Clear" },
+      2: { icon: "⛅", label: "Partly Cloudy" }, 3: { icon: "🌥️", label: "Overcast" },
+      45: { icon: "🌫️", label: "Foggy" }, 48: { icon: "🌫️", label: "Icy Fog" },
+      51: { icon: "🌦️", label: "Light Drizzle" }, 53: { icon: "🌦️", label: "Drizzle" },
+      55: { icon: "🌧️", label: "Heavy Drizzle" }, 61: { icon: "🌧️", label: "Light Rain" },
+      63: { icon: "🌧️", label: "Rain" }, 65: { icon: "🌧️", label: "Heavy Rain" },
+      71: { icon: "🌨️", label: "Light Snow" }, 73: { icon: "🌨️", label: "Snow" },
+      75: { icon: "❄️", label: "Heavy Snow" }, 77: { icon: "🌨️", label: "Snow Grains" },
+      80: { icon: "🌦️", label: "Showers" }, 81: { icon: "🌧️", label: "Heavy Showers" },
+      82: { icon: "⛈️", label: "Violent Showers" }, 85: { icon: "🌨️", label: "Snow Showers" },
+      86: { icon: "❄️", label: "Heavy Snow Showers" }, 95: { icon: "⛈️", label: "Thunderstorm" },
+      96: { icon: "⛈️", label: "Thunderstorm + Hail" }, 99: { icon: "⛈️", label: "Severe Thunderstorm" },
     };
 
-    function wmo(code) {
-      return WMO[code] ?? { icon: "🌡️", label: "Unknown" };
-    }
+    function wmo(code) { return WMO[code] ?? { icon: "🌡️", label: "Unknown" }; }
 
-    // ── Populate a weather card ──────────────────────────────
     function fillCard(card, data) {
       const w = wmo(data.code);
       card.classList.remove("loading");
@@ -395,16 +391,13 @@
         `<span>H ${data.hi}°</span> &nbsp;·&nbsp; L ${data.lo}°`;
     }
 
-    // ── Fetch weather from our backend ───────────────────────
     async function loadWeather() {
       try {
         const res = await fetch("/api/weather");
-        if (!res.ok) throw new Error("weather fetch failed");
+        if (!res.ok) throw new Error();
         const cities = await res.json();
         const cards  = document.querySelectorAll(".weather-card");
-        cities.forEach((data, i) => {
-          if (cards[i]) fillCard(cards[i], data);
-        });
+        cities.forEach((data, i) => { if (cards[i]) fillCard(cards[i], data); });
       } catch {
         document.getElementById("weather-strip").innerHTML =
           `<p class="weather-error">Weather is taking a break — check back in a moment 🌸</p>`;
@@ -412,6 +405,100 @@
     }
 
     loadWeather();
+
+    // ── Daily Scripture ──────────────────────────────────────
+    const VERSES = [
+      { text: "I can do all things through Christ who strengthens me.", ref: "Philippians 4:13" },
+      { text: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.", ref: "Jeremiah 29:11" },
+      { text: "The Lord is my shepherd; I shall not want.", ref: "Psalm 23:1" },
+      { text: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.", ref: "Isaiah 40:31" },
+      { text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", ref: "Romans 8:28" },
+      { text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.", ref: "Proverbs 3:5–6" },
+      { text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.", ref: "John 3:16" },
+      { text: "Be still, and know that I am God.", ref: "Psalm 46:10" },
+      { text: "Come to me, all you who are weary and burdened, and I will give you rest.", ref: "Matthew 11:28" },
+      { text: "Neither height nor depth, nor anything else in all creation, will be able to separate us from the love of God that is in Christ Jesus our Lord.", ref: "Romans 8:39" },
+      { text: "The Lord is my light and my salvation — whom shall I fear? The Lord is the stronghold of my life — of whom shall I be afraid?", ref: "Psalm 27:1" },
+      { text: "Do not fear, for I am with you; do not be dismayed, for I am your God. I will strengthen you and help you; I will uphold you with my righteous right hand.", ref: "Isaiah 41:10" },
+      { text: "She is clothed with strength and dignity; she can laugh at the days to come.", ref: "Proverbs 31:25" },
+      { text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.", ref: "Philippians 4:6–7" },
+      { text: "Because of the Lord's great love we are not consumed, for his compassions never fail. They are new every morning; great is your faithfulness.", ref: "Lamentations 3:22–23" },
+      { text: "Love is patient, love is kind. It does not envy, it does not boast, it is not proud. It does not dishonor others, it is not self-seeking.", ref: "1 Corinthians 13:4–5" },
+      { text: "I praise you because I am fearfully and wonderfully made; your works are wonderful, I know that full well.", ref: "Psalm 139:14" },
+      { text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", ref: "Joshua 1:9" },
+      { text: "May the God of hope fill you with all joy and peace as you trust in him, so that you may overflow with hope by the power of the Holy Spirit.", ref: "Romans 15:13" },
+      { text: "This is the day the Lord has made; let us rejoice and be glad in it.", ref: "Psalm 118:24" },
+      { text: "For God has not given us a spirit of fear, but of power and of love and of a sound mind.", ref: "2 Timothy 1:7" },
+      { text: "But seek first his kingdom and his righteousness, and all these things will be given to you as well.", ref: "Matthew 6:33" },
+      { text: "Delight yourself in the Lord, and he will give you the desires of your heart.", ref: "Psalm 37:4" },
+      { text: "When you pass through the waters, I will be with you; and when you pass through the rivers, they will not sweep over you.", ref: "Isaiah 43:2" },
+      { text: "Now to him who is able to do immeasurably more than all we ask or imagine, according to his power that is at work within us.", ref: "Ephesians 3:20" },
+      { text: "Commit to the Lord whatever you do, and he will establish your plans.", ref: "Proverbs 16:3" },
+      { text: "In this world you will have trouble. But take heart! I have overcome the world.", ref: "John 16:33" },
+      { text: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.", ref: "Psalm 34:18" },
+      { text: "You will keep in perfect peace those whose minds are steadfast, because they trust in you.", ref: "Isaiah 26:3" },
+      { text: "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.", ref: "Colossians 3:23" },
+      { text: "Whoever dwells in the shelter of the Most High will rest in the shadow of the Almighty. I will say of the Lord, 'He is my refuge and my fortress, my God, in whom I trust.'", ref: "Psalm 91:1–2" },
+      { text: "Do not conform to the pattern of this world, but be transformed by the renewing of your mind.", ref: "Romans 12:2" },
+      { text: "The Lord is my strength and my shield; my heart trusts in him, and he helps me. My heart leaps for joy, and with my song I praise him.", ref: "Psalm 28:7" },
+      { text: "The Lord your God is with you, the Mighty Warrior who saves. He will take great delight in you; in his love he will rejoice over you with singing.", ref: "Zephaniah 3:17" },
+      { text: "Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up.", ref: "Galatians 6:9" },
+      { text: "I lift up my eyes to the mountains — where does my help come from? My help comes from the Lord, the Maker of heaven and earth.", ref: "Psalm 121:1–2" },
+      { text: "Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid.", ref: "John 14:27" },
+      { text: "Be strong and courageous. Do not be afraid or terrified, for the Lord your God goes with you; he will never leave you nor forsake you.", ref: "Deuteronomy 31:6" },
+      { text: "I keep my eyes always on the Lord. With him at my right hand, I will not be shaken.", ref: "Psalm 16:8" },
+      { text: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7" },
+      { text: "The Lord will guide you always; he will satisfy your needs in a sun-scorched land and will strengthen your frame.", ref: "Isaiah 58:11" },
+      { text: "What does the Lord require of you? To act justly and to love mercy and to walk humbly with your God.", ref: "Micah 6:8" },
+      { text: "Weeping may endure for a night, but joy comes in the morning.", ref: "Psalm 30:5" },
+      { text: "For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do.", ref: "Ephesians 2:10" },
+      { text: "Suffering produces perseverance; perseverance, character; and character, hope.", ref: "Romans 5:3–4" },
+      { text: "Because your love is better than life, my lips will glorify you.", ref: "Psalm 63:3" },
+      { text: "Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.", ref: "Matthew 5:16" },
+      { text: "Now faith is confidence in what we hope for and assurance about what we do not see.", ref: "Hebrews 11:1" },
+      { text: "Praise the Lord, my soul, and forget not all his benefits — who forgives all your sins and heals all your diseases.", ref: "Psalm 103:2–3" },
+      { text: "He will wipe every tear from their eyes. There will be no more death or mourning or crying or pain.", ref: "Revelation 21:4" },
+      { text: "For my thoughts are not your thoughts, neither are your ways my ways, declares the Lord. As the heavens are higher than the earth, so are my ways higher than your ways.", ref: "Isaiah 55:8–9" },
+      { text: "There is now no condemnation for those who are in Christ Jesus.", ref: "Romans 8:1" },
+      { text: "You, Lord, are forgiving and good, abounding in love to all who call to you.", ref: "Psalm 86:5" },
+      { text: "There is no fear in love. But perfect love drives out fear.", ref: "1 John 4:18" },
+      { text: "May these words of my mouth and this meditation of my heart be pleasing in your sight, Lord, my Rock and my Redeemer.", ref: "Psalm 19:14" },
+      { text: "Do not worry about tomorrow, for tomorrow will worry about itself. Each day has enough trouble of its own.", ref: "Matthew 6:34" },
+      { text: "The Sovereign Lord is my strength; he makes my feet like the feet of a deer, he enables me to tread on the heights.", ref: "Habakkuk 3:19" },
+      { text: "Why, my soul, are you downcast? Put your hope in God, for I will yet praise him, my Savior and my God.", ref: "Psalm 42:11" },
+      { text: "He gives strength to the weary and increases the power of the weak.", ref: "Isaiah 40:29" },
+      { text: "If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you.", ref: "James 1:5" },
+      { text: "When I am afraid, I put my trust in you.", ref: "Psalm 56:3" },
+      { text: "For nothing will be impossible with God.", ref: "Luke 1:37" },
+      { text: "In all these things we are more than conquerors through him who loved us.", ref: "Romans 8:37" },
+      { text: "I will instruct you and teach you in the way you should go; I will counsel you with my loving eye on you.", ref: "Psalm 32:8" },
+      { text: "The Lord is good, a refuge in times of trouble. He cares for those who trust in him.", ref: "Nahum 1:7" },
+      { text: "I have come that they may have life, and have it to the full.", ref: "John 10:10" },
+      { text: "The Lord God is a sun and shield; the Lord bestows favor and honor; no good thing does he withhold from those whose walk is blameless.", ref: "Psalm 84:11" },
+      { text: "The name of the Lord is a fortified tower; the righteous run to it and are safe.", ref: "Proverbs 18:10" },
+      { text: "And surely I am with you always, to the very end of the age.", ref: "Matthew 28:20" },
+      { text: "The Lord is near to all who call on him, to all who call on him in truth.", ref: "Psalm 145:18" },
+      { text: "For we live by faith, not by sight.", ref: "2 Corinthians 5:7" },
+      { text: "Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken.", ref: "Psalm 55:22" },
+      { text: "Forget the former things; do not dwell on the past. See, I am doing a new thing! Now it springs up; do you not perceive it?", ref: "Isaiah 43:18–19" },
+      { text: "My flesh and my heart may fail, but God is the strength of my heart and my portion forever.", ref: "Psalm 73:26" },
+      { text: "The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you; the Lord turn his face toward you and give you peace.", ref: "Numbers 6:24–26" },
+      { text: "Create in me a pure heart, O God, and renew a steadfast spirit within me.", ref: "Psalm 51:10" },
+      { text: "Your word is a lamp for my feet, a light on my path.", ref: "Psalm 119:105" },
+    ];
+
+    function getTodayVerse() {
+      const now   = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const doy   = Math.floor((now - start) / 86_400_000);
+      return VERSES[doy % VERSES.length];
+    }
+
+    (function renderScripture() {
+      const v = getTodayVerse();
+      document.getElementById("scripture-text").textContent = v.text;
+      document.getElementById("scripture-ref").textContent  = v.ref;
+    })();
   </script>
 </body>
 </html>
